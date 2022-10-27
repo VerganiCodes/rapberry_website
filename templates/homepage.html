@@ -1,0 +1,391 @@
+<html>
+<title> HOMEPAGE </title>
+<div class="container-fluid">
+    <body>
+    <!-- Background animtion-->
+    <div class="background">
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+
+
+        <div class="topnav">
+
+            <form action="/quer" method="post" class="active">
+                <input type="hidden" name="email" value={{kemail}}><br>
+                <input type="submit" value="Home"/><br>
+
+            </form>
+            <form action="/dash" method="post">
+                <input type="hidden" name="email" value={{kemail}}><br>
+                <input type="submit" value="Plots"/><br>
+            </form>
+            <form action="/exita" method="post">
+                <input type="hidden" name="email" value={{kemail}}> <br>
+                <input type="submit" value="TODO"/><br>
+            </form>
+
+            <div class="topnav-right">
+                <form action="/exita" method="post">
+                    <input type="hidden" name="email" value={{kemail}}><br>
+                    <input type="submit" value="TODO"/><br>
+                </form>
+                <form action="/exita" method="post">
+                    <input type="hidden" name="email" value={{kemail}}><br>
+                    <input type="submit" value="Sign Off"/><br>
+                </form>
+            </div>
+        </div>
+
+        <div class="wrapper">
+
+
+            <header>
+                <div class="login-box">
+                    <div class="user-box">
+                        <form action="/quer" method="post">
+                            <input type="text" name="query" placeholder={{konsiglio}}>
+                            <input type="hidden" name="email" value={{kemail}}>
+                            <input type="hidden" name="pswd" value={{kpass}}>
+                            <a><input type="submit" value="Execute"/></a>
+                            </form>
+
+                          <h2>the LED is {{kaction}}</h2>
+                          <form action="/quer" method="post">
+                              <input type="hidden" name="email" value={{kemail}}>
+                              <input type="hidden" name="pswd" value={{kpass}}>
+                              <input type="radio" id= 'on' name="query"  value='on'>
+                              <label text-color=white>On</label>
+                              <br>
+                              <input type="radio" id='off' name="query" value='off'>
+                              <label>Off</label>
+                            <br><br>
+                            <a>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <input type="Submit" value="Submit">
+                            </a>
+                          </form>
+
+
+
+
+                    </div>
+                </div>
+            </header>
+            <nav id='chart' class='chart' ”>
+
+                <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+                <script type='text/javascript'>
+				var graphs = {{graphJSON | safe}};
+				Plotly.plot('chart',graphs,{});
+
+                </script>
+
+            </nav>
+            <section>
+
+                <div class="tbl-header">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Timestamp</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="tbl-content">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <tbody>
+                        {%for row in kactions%}
+                        <tr>
+                            {%for col in row%}
+                            <td>{{col}}</td>
+                            {%endfor%}
+                        </tr>
+                        {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+    </body>
+</div>
+<style>
+/**************************************
+STATIC LAYOUT CSS
+**************************************/
+
+.wrapper {
+  width: 1100px;
+  margin: 20px auto;
+}
+
+header {
+	width: 1100px;
+}
+
+nav, section {
+  float: left;
+}
+
+nav {
+  width: 20%;
+  padding-right: 75px auto;
+ 
+
+}
+
+section {
+  width: 75%;
+}
+
+
+
+/**************************************
+CSS TO MAKE THE EXAMPLE LOOK PRETTY
+**************************************/
+
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  box-sizing: border-box;
+}
+
+/* ============= Animation background ========= */
+.background {
+  background: linear-gradient(132deg, #FC415A, #a278ad, #5c4ead);
+  background-size: 400% 400%;
+  animation: Gradient 40s ease infinite;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  top: 0;
+left: 0;
+margin-bottom: -200px;
+
+}
+.cube {
+  position: absolute;
+  top: 80vh;
+  left: 45vw;
+  width: 10px;
+  height: 10px;
+  border: solid 1px #D7D4E4;
+  transform-origin: top left;
+  transform: scale(0) rotate(0deg) translate(-50%, -50%);
+  animation: cube 12s ease-in forwards infinite;
+}
+.cube:nth-child(2n) {
+  border-color: #FFF ;
+}
+.cube:nth-child(2) {
+  animation-delay: 2s;
+  left: 25vw;
+  top: 40vh;
+}
+.cube:nth-child(3) {
+  animation-delay: 4s;
+  left: 75vw;
+  top: 50vh;
+}
+.cube:nth-child(4) {
+  animation-delay: 6s;
+  left: 90vw;
+  top: 10vh;
+}
+.cube:nth-child(5) {
+  animation-delay: 8s;
+  left: 10vw;
+  top: 85vh;
+}
+.cube:nth-child(6) {
+  animation-delay: 10s;
+  left: 50vw;
+  top: 10vh;
+}
+
+/* Animate Background*/
+@keyframes Gradient {
+  0% {
+    background-position: 0% 52%;
+  }
+  50% {
+    background-position: 100% 52%;
+  }
+  100% {
+    background-position: 0% 52%;
+  }
+}
+@keyframes cube {
+  from {
+    transform: scale(0) rotate(0deg) translate(-50%, -50%);
+    opacity: 1;
+  }
+  to {
+    transform: scale(20) rotate(960deg) translate(-50%, -50%);
+    opacity: 0;
+  }
+}
+
+
+
+header {
+  padding: 20px auto;
+  
+}
+
+
+.topnav {
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.topnav form {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  font-size: 17px;
+  
+}.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+.topnav form:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+.topnav form.active {
+  background-color: #5b26e0;
+  color: white;
+}
+
+.topnav-right {
+  float: right;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+	text-align: center;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+	color: white;
+}
+
+.login-box {
+  width: 100%;
+  text-align: center;
+	
+  background: rgba(0,0,0,.3);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+
+
+.login-box .user-box input {
+  width: auto;
+	padding: auto;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+
+.login-box form a {
+	color: #fff;
+
+  padding: 10px 20px;
+  color: #03e9f4;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+
+  letter-spacing: 4px
+}
+
+.login-box a:hover {
+  background: #7433b5;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #7433b5,
+              0 0 25px #7433b5,
+              0 0 50px #7433b5,
+              0 0 100px #7433b5;
+}
+
+
+
+table{
+  width:100%;
+  table-layout: fixed;
+}
+.tbl-header{
+margin-top: 40px;
+  background-color: rgba(255,255,255,0.3);
+ }
+.tbl-content{
+  height:450px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  text-transform: uppercase;
+}
+td{
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+
+
+
+</style>
+
+
+</html>
+
